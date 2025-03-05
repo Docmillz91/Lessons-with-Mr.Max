@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>El Cerebro - Hoja de Actividades</title>
+
+  <!--style-sheeet links reset-style -->
+  
+  <link href="css/reset.css" rel="stylesheet" type="text/css">
+  <link href="../css/style.css" rel="stylesheet" type="text/css">
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const speechElements = document.querySelectorAll(".speech");
+
+        speechElements.forEach(element => {
+            let audio = new Audio(element.getAttribute("data-audio"));
+
+            element.addEventListener("mouseenter", () => {
+                audio.currentTime = 0; // Reset audio to start
+                audio.play();
+            });
+
+            element.addEventListener("mouseleave", () => {
+                audio.pause();
+            });
+        });
+    });
+      
+       function checkBlanks() {
+        const answers = {
+            blank1: "Frontal",
+            blank2: "Occipital",
+            blank3: "Cerebellum"
+        };
+
+        let correct = 0;
+        Object.keys(answers).forEach(id => {
+            const userInput = document.getElementById(id).value.trim();
+            if (userInput.toLowerCase() === answers[id].toLowerCase()) {
+                correct++;
+                document.getElementById(id).style.border = "2px solid green";
+            } else {
+                document.getElementById(id).style.border = "2px solid red";
+            }
+        });
+
+        const feedback = document.getElementById("fillBlankFeedback");
+        feedback.innerHTML = `You got ${correct} out of 3 correct!`;
+        feedback.style.fontWeight = "bold";
+    }
+
+    function checkQuiz() {
+        const answers = {
+            q1: "Parietal",
+            q2: "Temporal"
+        };
+
+        let correct = 0;
+        Object.keys(answers).forEach(name => {
+            const selected = document.querySelector(`input[name="${name}"]:checked`);
+            if (selected && selected.value === answers[name]) {
+                correct++;
+            }
+        });
+
+        const feedback = document.getElementById("quizFeedback");
+        feedback.innerHTML = `You got ${correct} out of 2 correct!`;
+        feedback.style.fontWeight = "bold";
+    }
+      
+      document.addEventListener("DOMContentLoaded", () => {
+        const speechElements = document.querySelectorAll(".speech");
+
+        speechElements.forEach(element => {
+            const audioSrc = element.getAttribute("data-audio");
+            if (!audioSrc) return;
+
+            let audio = new Audio(audioSrc);
+
+            element.addEventListener("mouseenter", () => {
+                audio.currentTime = 0;
+                audio.play();
+            });
+
+            element.addEventListener("mouseleave", () => {
+                audio.pause();
+                audio.currentTime = 0;
+            });
+        });
+    });
+
+    function checkAnswers() {
+        let correctCount = 0;
+        document.querySelectorAll(".drop-zone").forEach(zone => {
+            let selected = zone.getAttribute("data-selected");
+            let correctAnswer = zone.getAttribute("data-answer");
+            if (selected === correctAnswer) {
+                zone.classList.add("correct");
+                zone.classList.remove("incorrect");
+                correctCount++;
+            } else {
+                zone.classList.add("incorrect");
+                zone.classList.remove("correct");
+            }
+        });
+        document.getElementById("feedback").innerText = `¡Has acertado ${correctCount} de 4 respuestas correctas!`;
+    }
+</script>
+</head>
+
+<body>
+
+<header>
+    <h1>El Cerebro</h1>
+</header>
+
+    <nav>
+    <ul class="navbar">
+        <li><a href="../index.html">English Version</a></li>
+       
+    </ul>
+</nav>
+
+
+<section>
+   
+    <h2>Introducción</h2>
+    <img src="../image/human-brain.PNG" alt="the human brain">
+
+    <p class="text-box">
+        El cerebro humano es como el centro de control de tu cuerpo. Te ayuda a 
+        <span>pensar, sentir, moverte y recordar cosas</span>. También controla funciones automáticas como la respiración y los latidos del corazón.
+    </p>
+
+
+</section>
+
+<section>
+    <h2>Anatomía del Cerebro</h2>
+    <p class="text-box">Tu cerebro tiene diferentes partes que trabajan juntas, como un equipo:</p>
+
+    <ul>
+        <li><span class="key-word">Lóbulo Frontal</span> <span class="speech" data-audio="../audio/Lóbulo-Frontal.mp3">“LO-bo-lo FRUN-tal”</span> – Te ayuda a <span> pensar, resolver problemas y tomar decisiones.</span></li>
+        
+        <li><span class="key-word">Lóbulo Parietal</span> <span class="speech" data-audio="../audio/Lóbulo-Parietal.mp3"> “LO-bo-lo pa-rye-TAL”</span> – Te ayuda a <span>sentir el tacto, el dolor y la ubicación del cuerpo.</span></li>
+        
+        <li><span class="key-word">Lóbulo Occipital</span> <span class="speech" data-audio="../audio/Lóbulo-Occipital.mp3">“LO-bo-lo ok-si-PI-tal”</span> – Te ayuda a <span>ver y comprender</span> lo que observas.</li>
+        
+        <li><span class="key-word">Lóbulo Temporal</span> <span class="speech" data-audio="../audio/Lóbulo-Temporal.mp3">“LO-bo-lo TEM-por-al”</span> – Te ayuda a <span>escuchar, comprender palabras y recordar cosas.</span></li>
+        
+        <li><span class="key-word">Cerebelo</span> <span class="speech" data-audio="../audio/Cerebelo.mp3">“se-re-BE-lo”</span> – Te ayuda a <span>mantener el equilibrio y moverte.</span></li>
+    </ul>
+    
+    <img src="../image/anatomy.PNG" alt="lobe">
+
+</section>
+
+<section>
+    <h2>Actividad: ¡Pon a prueba tu conocimiento!</h2>
+
+    <h3>1. Completa los espacios en blanco</h3>
+    <p class="text-box">Escribe la palabra correcta en los espacios en blanco.</p>
+
+    <form id="fillBlanksForm">
+        <p>
+            El <input type="text" id="blank1" placeholder="Escribe aquí"> ayuda a tomar decisiones.
+        </p>
+        <p>
+            El <input type="text" id="blank2" placeholder="Escribe aquí"> procesa lo que vemos.
+        </p>
+        <p>
+            El <input type="text" id="blank3" placeholder="Escribe aquí"> controla el equilibrio y el movimiento.
+        </p>
+        <button type="button" onclick="checkBlanks()">Verificar Respuestas</button>
+        <p id="fillBlankFeedback"></p>
+    </form>
+    
+    
+    <section>
+    <h2>Juego de asociación de lóbulos cerebrales</h2>
+    <p>Arrastra el nombre del lóbulo a la caja de función correcta y haz clic en Enviar.</p>
+
+    <div id="lobes">
+        <div class="drag-item" draggable="true" id="frontal">Frontal</div>
+        <div class="drag-item" draggable="true" id="parietal">Parietal</div>
+        <div class="drag-item" draggable="true" id="temporal">Temporal</div>
+        <div class="drag-item" draggable="true" id="occipital">Occipital</div>
+    </div>
+
+    <div class="drop-zone" data-answer="Frontal">Responsable del razonamiento, las emociones y la función motora</div>
+    <div class="drop-zone" data-answer="Parietal">Procesa información sensorial como el tacto y la percepción espacial</div>
+    <div class="drop-zone" data-answer="Temporal">Encargado del procesamiento auditivo y la memoria</div>
+    <div class="drop-zone" data-answer="Occipital">Procesa la información visual</div>
+    
+    <button onclick="checkAnswers()">Enviar</button>
+    <p id="feedback"></p>
+
+    <script>
+        document.querySelectorAll(".drag-item").forEach(item => {
+            item.addEventListener("dragstart", event => {
+                event.dataTransfer.setData("text", event.target.id);
+            });
+        });
+
+        document.querySelectorAll(".drop-zone").forEach(zone => {
+            zone.addEventListener("dragover", event => {
+                event.preventDefault();
+            });
+            zone.addEventListener("drop", event => {
+                event.preventDefault();
+                let data = event.dataTransfer.getData("text");
+                let draggedElement = document.getElementById(data);
+                event.target.innerHTML = draggedElement.textContent;
+                event.target.setAttribute("data-selected", draggedElement.textContent);
+            });
+        });
+    </script>
+</section>
+
+    <h3>2. Preguntas de opción múltiple</h3>
+    <form id="quizForm">
+        <p>¿Qué parte del cerebro nos ayuda a sentir el tacto y el dolor?</p>
+        <input type="radio" name="q1" value="Frontal"> Lóbulo Frontal<br>
+        <input type="radio" name="q1" value="Parietal"> Lóbulo Parietal<br>
+        <input type="radio" name="q1" value="Temporal"> Lóbulo Temporal<br>
+
+        <p>¿Qué lóbulo nos ayuda a recordar y entender palabras?</p>
+        <input type="radio" name="q2" value="Parietal"> Lóbulo Parietal<br>
+        <input type="radio" name="q2" value="Temporal"> Lóbulo Temporal<br>
+        <input type="radio" name="q2" value="Occipital"> Lóbulo Occipital<br>
+
+        <button type="button" onclick="checkQuiz()">Enviar Respuestas</button>
+        <p id="quizFeedback"></p>
+    </form>
+</section>
+
+<script>
+    function checkBlanks() {
+        const respuestas = { blank1: "Frontal", blank2: "Occipital", blank3: "Cerebelo" };
+        let correctos = 0;
+        Object.keys(respuestas).forEach(id => {
+            const userInput = document.getElementById(id).value.trim();
+            if (userInput.toLowerCase() === respuestas[id].toLowerCase()) {
+                correctos++;
+            }
+        });
+        document.getElementById("fillBlankFeedback").innerText = `¡Acertaste ${correctos} de 3 respuestas!`;
+    }
+
+    function checkQuiz() {
+        const respuestas = { q1: "Parietal", q2: "Temporal" };
+        let correctos = Object.keys(respuestas).filter(name => 
+            document.querySelector(`input[name="${name}"]:checked`)?.value === respuestas[name]
+        ).length;
+        document.getElementById("quizFeedback").innerText = `¡Acertaste ${correctos} de 2 respuestas!`;
+    }
+</script>
+
+</body>
+</html>
