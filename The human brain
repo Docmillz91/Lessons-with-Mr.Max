@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+ <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Brain</title>
+  
+  <!--style-sheeet links reset-style -->
+  
+  <link href="css/reset.css" rel="stylesheet" type="text/css">
+  <link href="css/style.css" rel="stylesheet" type="text/css">
+  
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const speechElements = document.querySelectorAll(".speech");
+
+        speechElements.forEach(element => {
+            const audioSrc = element.getAttribute("data-audio");
+            if (!audioSrc) return; // Prevent issues if attribute is missing
+
+            let audio = new Audio(audioSrc);
+
+            element.addEventListener("mouseenter", () => {
+                audio.currentTime = 0; // Reset audio to start
+                audio.play();
+            });
+
+            element.addEventListener("mouseleave", () => {
+                audio.pause();
+                audio.currentTime = 0; // Ensure it starts fresh next time
+            });
+        });
+    });
+
+    function checkBlanks() {
+        const answers = {
+            blank1: "Frontal",
+            blank2: "Occipital",
+            blank3: "Cerebellum"
+        };
+
+        let correct = 0;
+        Object.keys(answers).forEach(id => {
+            const inputField = document.getElementById(id);
+            if (!inputField) return; // Ensure the input field exists
+            
+            const userInput = inputField.value.trim();
+            if (userInput.toLowerCase() === answers[id].toLowerCase()) {
+                correct++;
+                inputField.style.border = "2px solid green";
+            } else {
+                inputField.style.border = "2px solid red";
+            }
+        });
+
+        const feedback = document.getElementById("fillBlankFeedback");
+        if (feedback) {
+            feedback.innerHTML = `You got ${correct} out of ${Object.keys(answers).length} correct!`;
+            feedback.style.fontWeight = "bold";
+        }
+    }
+
+    function checkQuiz() {
+        const answers = {
+            q1: "Parietal",
+            q2: "Temporal"
+        };
+
+        let correct = 0;
+        Object.keys(answers).forEach(name => {
+            const selected = document.querySelector(`input[name="${name}"]:checked`);
+            if (selected && selected.value === answers[name]) {
+                correct++;
+            }
+        });
+
+        const feedback = document.getElementById("quizFeedback");
+        if (feedback) {
+            feedback.innerHTML = `You got ${correct} out of ${Object.keys(answers).length} correct!`;
+            feedback.style.fontWeight = "bold";
+        }
+    }
+    
+    
+    document.addEventListener("DOMContentLoaded", () => {
+        const speechElements = document.querySelectorAll(".speech");
+
+        speechElements.forEach(element => {
+            const audioSrc = element.getAttribute("data-audio");
+            if (!audioSrc) return; // Prevent issues if attribute is missing
+
+            let audio = new Audio(audioSrc);
+
+            element.addEventListener("mouseenter", () => {
+                audio.currentTime = 0; // Reset audio to start
+                audio.play();
+            });
+
+            element.addEventListener("mouseleave", () => {
+                audio.pause();
+                audio.currentTime = 0; // Ensure it starts fresh next time
+            });
+        });
+    });
+
+    function checkAnswers() {
+        let correctCount = 0;
+        document.querySelectorAll(".drop-zone").forEach(zone => {
+            let selected = zone.getAttribute("data-selected");
+            let correctAnswer = zone.getAttribute("data-answer");
+            if (selected === correctAnswer) {
+                zone.classList.add("correct");
+                zone.classList.remove("incorrect");
+                correctCount++;
+            } else {
+                zone.classList.add("incorrect");
+                zone.classList.remove("correct");
+            }
+        });
+        document.getElementById("feedback").innerText = `You got ${correctCount} out of 4 correct!`;
+    }
+</script>
+
+  </head>
+  
+
+
+
+<body>
+
+<header><h1>The human brain</h1></header>
+
+<nav>
+    <ul class="navbar">
+        <li><a href="pages/Spanish.html">Spanish Version</a></li>
+       
+    </ul>
+</nav>
+
+<section class="intro">
+    <h2>Introduction</h2>
+
+
+<img src="image/human-brain.PNG" alt="the human brain">
+
+<p class="text-box">The human brain is like the control center of your body. It helps you <span>think, feel, move, and remember things</span>. It also controls things you don’t even have to think about, like breathing and your heartbeat.</p>
+
+</section>
+
+
+
+
+<section>
+
+<h2> Brain anatomy</h2>
+
+<p class="text-box">Your brain has different parts that work together, just like a team:</p>
+
+<ul>
+   <li><span class="key-word">Frontal Lobe</span> <span class="speech" data-audio="audio/frontal.mp3">“frun-tul lobe”</span> – Helps you <span> think, solve problems, and make decisions.</span></li>
+
+<li><span class="key-word">Parietal Lobe</span> <span class="speech" data-audio="audio/parietal.mp3">“puh-RY-uh-tul lobe”</span> – Helps you <span>feel touch, pain, and know</span> where your body is.</li>
+
+<li><span class="key-word">Occipital Lobe</span> <span class="speech" data-audio="audio/occipital.mp3">“ok-sip-ih-tul lobe”</span> – Helps you <span>see and understand</span> what your eyes are looking at.</li>
+
+<li><span class="key-word">Temporal Lobe</span> <span class="speech" data-audio="audio/temporal.mp3">“tem-puh-rule lobe”</span> – Helps you <span>hear, understand words, and remember things</span>.</li>
+
+<li><span class="key-word">Cerebellum</span> <span class="speech" data-audio="audio/cerebellum.mp3">“seh-ruh-bell-um”</span> – Helps you <span>balance and move</span>.</li>
+
+</ul>
+
+<img src="image/anatomy.PNG" alt="lobe">
+<p>Color sheet sample</p>
+</section>
+
+
+<section>
+    <h2>Brain Lobe Matching Game</h2>
+    <p>Drag the lobe name to the correct function box and click Submit.</p>
+
+    <div id="lobes">
+        <div class="drag-item" draggable="true" id="frontal">Frontal</div>
+        <div class="drag-item" draggable="true" id="parietal">Parietal</div>
+        <div class="drag-item" draggable="true" id="temporal">Temporal</div>
+        <div class="drag-item" draggable="true" id="occipital">Occipital</div>
+    </div>
+
+    <div class="drop-zone" data-answer="Frontal">Responsible for problem-solving, emotions, and motor function</div>
+    <div class="drop-zone" data-answer="Parietal">Processes sensory information like touch and spatial awareness</div>
+    <div class="drop-zone" data-answer="Temporal">Handles auditory processing and memory</div>
+    <div class="drop-zone" data-answer="Occipital">Processes visual information</div>
+    
+    <button onclick="checkAnswers()">Submit</button>
+    <p id="feedback"></p>
+
+    <script>
+        document.querySelectorAll(".drag-item").forEach(item => {
+            item.addEventListener("dragstart", event => {
+                event.dataTransfer.setData("text", event.target.id);
+            });
+        });
+
+        document.querySelectorAll(".drop-zone").forEach(zone => {
+            zone.addEventListener("dragover", event => {
+                event.preventDefault();
+            });
+            zone.addEventListener("drop", event => {
+                event.preventDefault();
+                let data = event.dataTransfer.getData("text");
+                let draggedElement = document.getElementById(data);
+                event.target.innerHTML = draggedElement.textContent;
+                event.target.setAttribute("data-selected", draggedElement.textContent);
+            });
+        });
+    </script>
+</section>
+
+
+
+
+
+
+<section>
+   <h3>Student Activity Sheet</h3>
+   <p>Color the frontal lobe, parietal lobe, occipital lobe, temporal lobe, and cerebellum a different color like the example shown above.</p>
+   <img src="image/color-sheet.jpg" alt="">
+    <a href="image/color-sheet.jpg" download="human-brain color-sheet">
+    Download Brain Image
+</a>
+
+</section>
+
+
+<section>
+    <h2>Brain Activity: Test Your Knowledge!</h2>
+
+    <h3>1. Fill in the Blanks</h3>
+    <p class="text-box">Complete the sentences below by filling in the missing words.</p>
+
+    <form id="fillBlanksForm">
+        <p>
+            The <input type="text" id="blank1" placeholder="Type here"> lobe helps with thinking and decision-making.
+        </p>
+        <p>
+            The <input type="text" id="blank2" placeholder="Type here"> lobe is responsible for processing what we see.
+        </p>
+        <p>
+            The <input type="text" id="blank3" placeholder="Type here"> helps you balance and move.
+        </p>
+        <button type="button" onclick="checkBlanks()">Check Answers</button>
+        <p id="fillBlankFeedback"></p>
+    </form>
+
+    <h3>2. Multiple Choice Questions</h3>
+    <form id="quizForm">
+        <p>Which part of the brain helps you feel touch and pain?</p>
+        <input type="radio" name="q1" value="Frontal"> Frontal Lobe<br>
+        <input type="radio" name="q1" value="Parietal"> Parietal Lobe<br>
+        <input type="radio" name="q1" value="Temporal"> Temporal Lobe<br>
+
+        <p>Which lobe helps with hearing and memory?</p>
+        <input type="radio" name="q2" value="Parietal"> Parietal Lobe<br>
+        <input type="radio" name="q2" value="Temporal"> Temporal Lobe<br>
+        <input type="radio" name="q2" value="Occipital"> Occipital Lobe<br>
+
+        <button type="button" onclick="checkQuiz()">Submit Quiz</button>
+        <p id="quizFeedback"></p>
+    </form>
+</section>
+ 
+
+     </body>
+</html>
